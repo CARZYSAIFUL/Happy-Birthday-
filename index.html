@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Snigdha 💖</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Poppins&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+<style>
+html,body{
+  margin:0;
+  padding:0;
+  min-height:100%;
+}
+body{
+  font-family:'Poppins',sans-serif;
+  background:linear-gradient(135deg,#ffe6ee,#fff0f5,#fbeaff);
+  background-size:400% 400%;
+  animation:bgMove 15s ease infinite;
+  position:relative;
+  overflow-x:hidden;
+}
+@keyframes bgMove{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+
+/* hearts texture */
+.heart-bg{
+  position:fixed;
+  inset:0;
+  background-image:radial-gradient(#ffb6c1 2px, transparent 2px);
+  background-size:40px 40px;
+  opacity:.25;
+  z-index:0;
+  pointer-events:none;
+}
+
+/* glass card */
+.card{
+  position:relative;
+  z-index:1;
+  max-width:420px;
+  margin:30px auto;
+  padding:26px 22px 30px;
+  border-radius:22px;
+  background:rgba(255,255,255,.45);
+  backdrop-filter:blur(14px);
+  box-shadow:0 20px 40px rgba(0,0,0,.18);
+  text-align:center;
+}
+
+/* text */
+h1{
+  font-family:'Dancing Script',cursive;
+  font-size:40px;
+  color:#ff4d6d;
+  margin:10px 0 15px;
+}
+#countdown{
+  font-size:17px;
+  color:#555;
+}
+#age{
+  font-size:42px;
+  color:#ff4d6d;
+  margin:18px 0;
+}
+
+/* video */
+.video-box{
+  margin:18px 0 26px;
+}
+.video-hint{
+  font-size:14px;
+  color:#666;
+  margin-bottom:6px;
+}
+.video-box iframe{
+  width:100%;
+  height:200px;
+  border-radius:16px;
+  border:none;
+  box-shadow:0 12px 30px rgba(0,0,0,.25);
+}
+
+/* gift */
+.gift-section{
+  margin:30px 0;
+}
+.gift-box{
+  font-size:75px;
+  cursor:pointer;
+  animation:bounce 1.4s infinite;
+}
+@keyframes bounce{
+  50%{transform:translateY(-12px);}
+}
+.open-text{
+  font-size:15px;
+  color:#ff4d6d;
+  margin-top:6px;
+}
+.gift-image{
+  display:none;
+  margin-top:18px;
+}
+.gift-image img{
+  width:100%;
+  max-width:360px;
+  border-radius:18px;
+  box-shadow:0 12px 30px rgba(0,0,0,.25);
+}
+
+/* rose */
+.rose{
+  margin:40px 0 10px;
+}
+.rose img{
+  width:100%;
+  max-width:360px;
+  border-radius:18px;
+  box-shadow:0 12px 30px rgba(0,0,0,.25);
+}
+.rose p{
+  font-family:'Dancing Script',cursive;
+  font-size:22px;
+  color:#ff4d6d;
+  margin-top:10px;
+}
+
+/* footer */
+footer{
+  margin-top:25px;
+  font-size:14px;
+  color:#777;
+}
+footer a{
+  color:#ff4d6d;
+  text-decoration:none;
+  font-weight:500;
+}
+footer a:hover{
+  text-decoration:underline;
+}
+</style>
+</head>
+
+<body>
+
+<div class="heart-bg"></div>
+
+<div class="card">
+
+  <h1>Happy Birthday<br>Snigdha Afrin Ety 🎂💖</h1>
+
+  <div id="countdown"></div>
+  <div id="age"></div>
+
+  <div class="video-box">
+    <div class="video-hint">🔊 Tap play for video</div>
+    <iframe src="https://streamable.com/e/tsgee9" allowfullscreen></iframe>
+  </div>
+
+  <section class="gift-section">
+    <div class="gift-box" id="giftBox" onclick="openGift()">🎁</div>
+    <div class="open-text" id="openText">Open Gift Box</div>
+
+    <div class="gift-image" id="giftImage">
+      <img src="https://i.ibb.co/ymn54q34/gift-box.jpg">
+    </div>
+  </section>
+
+  <section class="rose">
+    <img src="https://i.ibb.co/DDGgdVNy/rose.jpg">
+    <p>Just for you 🌹</p>
+  </section>
+
+  <footer>
+    Developed by 
+    <a href="https://www.facebook.com/Mohammadsaiful91" target="_blank">
+      Saiful
+    </a> 💖
+  </footer>
+
+</div>
+
+<script>
+const birth=new Date("2008-02-12");
+const now=new Date();
+
+let age=now.getFullYear()-birth.getFullYear();
+if(now.getMonth()<1||(now.getMonth()==1&&now.getDate()<12)) age--;
+document.getElementById("age").innerHTML="Turning "+age+" ✨";
+
+let next=new Date(now.getFullYear(),1,12,0,0,0);
+if(now>next) next=new Date(now.getFullYear()+1,1,12,0,0,0);
+
+setInterval(()=>{
+  let diff=next-new Date();
+  let d=Math.floor(diff/86400000);
+  let h=Math.floor(diff/3600000)%24;
+  let m=Math.floor(diff/60000)%60;
+  let s=Math.floor(diff/1000)%60;
+  document.getElementById("countdown").innerHTML=
+    `🎉 Birthday in ${d}d ${h}h ${m}m ${s}s`;
+},1000);
+
+function openGift(){
+  document.getElementById("openText").style.display="none";
+  document.getElementById("giftBox").style.display="none";
+  document.getElementById("giftImage").style.display="block";
+  confetti({particleCount:140,spread:90,origin:{y:.6}});
+}
+</script>
+
+</body>
+</html>
