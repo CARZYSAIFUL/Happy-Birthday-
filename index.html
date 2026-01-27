@@ -5,10 +5,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Happy Birthday Snigdha 💖</title>
 
+<!-- Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Poppins&display=swap" rel="stylesheet">
+
+<!-- Confetti -->
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
+<!-- Preload images (FAST LOAD) -->
+<link rel="preload" as="image" href="gift-box.jpg">
+<link rel="preload" as="image" href="rose.jpg">
+
 <style>
+/* ===== BASE ===== */
 html,body{
   margin:0;
   padding:0;
@@ -19,8 +27,8 @@ body{
   background:linear-gradient(135deg,#ffe6ee,#fff0f5,#fbeaff);
   background-size:400% 400%;
   animation:bgMove 15s ease infinite;
-  position:relative;
   overflow-x:hidden;
+  position:relative;
 }
 @keyframes bgMove{
   0%{background-position:0% 50%}
@@ -28,7 +36,7 @@ body{
   100%{background-position:0% 50%}
 }
 
-/* hearts texture */
+/* Hearts background */
 .heart-bg{
   position:fixed;
   inset:0;
@@ -39,7 +47,7 @@ body{
   pointer-events:none;
 }
 
-/* glass card */
+/* Glass card */
 .card{
   position:relative;
   z-index:1;
@@ -53,7 +61,7 @@ body{
   text-align:center;
 }
 
-/* text */
+/* Text */
 h1{
   font-family:'Dancing Script',cursive;
   font-size:40px;
@@ -70,14 +78,25 @@ h1{
   margin:18px 0;
 }
 
-/* video */
+/* Video */
 .video-box{
   margin:18px 0 26px;
 }
-.video-hint{
-  font-size:14px;
-  color:#666;
-  margin-bottom:6px;
+.sound-hint{
+  display:inline-block;
+  padding:6px 14px;
+  margin-bottom:10px;
+  font-size:13px;
+  color:#ff4d6d;
+  background:rgba(255,255,255,.6);
+  border-radius:999px;
+  box-shadow:0 6px 16px rgba(0,0,0,.15);
+  animation:pulse 1.6s infinite;
+}
+@keyframes pulse{
+  0%{transform:scale(1);opacity:.8}
+  50%{transform:scale(1.05);opacity:1}
+  100%{transform:scale(1);opacity:.8}
 }
 .video-box iframe{
   width:100%;
@@ -87,7 +106,7 @@ h1{
   box-shadow:0 12px 30px rgba(0,0,0,.25);
 }
 
-/* gift */
+/* Gift */
 .gift-section{
   margin:30px 0;
 }
@@ -105,8 +124,11 @@ h1{
   margin-top:6px;
 }
 .gift-image{
-  display:none;
-  margin-top:18px;
+  display:block;
+  opacity:0;
+  height:0;
+  overflow:hidden;
+  transition:opacity .3s ease;
 }
 .gift-image img{
   width:100%;
@@ -115,7 +137,7 @@ h1{
   box-shadow:0 12px 30px rgba(0,0,0,.25);
 }
 
-/* rose */
+/* Rose */
 .rose{
   margin:40px 0 10px;
 }
@@ -132,7 +154,7 @@ h1{
   margin-top:10px;
 }
 
-/* footer */
+/* Footer */
 footer{
   margin-top:25px;
   font-size:14px;
@@ -160,27 +182,30 @@ footer a:hover{
   <div id="countdown"></div>
   <div id="age"></div>
 
+  <!-- Video -->
   <div class="video-box">
-    <div class="video-hint">🔊 Tap play for video</div>
+    <div class="sound-hint">▶️ Tap play for video</div>
     <iframe src="https://streamable.com/e/tsgee9" allowfullscreen></iframe>
   </div>
 
+  <!-- Gift -->
   <section class="gift-section">
     <div class="gift-box" id="giftBox" onclick="openGift()">🎁</div>
     <div class="open-text" id="openText">Open Gift Box</div>
 
     <div class="gift-image" id="giftImage">
-      <img src="https://i.ibb.co/ymn54q34/gift-box.jpg">
+      <img src="gift-box.jpg">
     </div>
   </section>
 
+  <!-- Rose -->
   <section class="rose">
-    <img src="https://i.ibb.co/DDGgdVNy/rose.jpg">
+    <img src="rose.jpg">
     <p>Just for you 🌹</p>
   </section>
 
   <footer>
-    Developed by 
+    Developed by
     <a href="https://www.facebook.com/Mohammadsaiful91" target="_blank">
       Saiful
     </a> 💖
@@ -189,13 +214,16 @@ footer a:hover{
 </div>
 
 <script>
+// Birthday
 const birth=new Date("2008-02-12");
 const now=new Date();
 
+// Age
 let age=now.getFullYear()-birth.getFullYear();
 if(now.getMonth()<1||(now.getMonth()==1&&now.getDate()<12)) age--;
 document.getElementById("age").innerHTML="Turning "+age+" ✨";
 
+// Countdown
 let next=new Date(now.getFullYear(),1,12,0,0,0);
 if(now>next) next=new Date(now.getFullYear()+1,1,12,0,0,0);
 
@@ -209,10 +237,15 @@ setInterval(()=>{
     `🎉 Birthday in ${d}d ${h}h ${m}m ${s}s`;
 },1000);
 
+// Gift open
 function openGift(){
   document.getElementById("openText").style.display="none";
   document.getElementById("giftBox").style.display="none";
-  document.getElementById("giftImage").style.display="block";
+
+  const img=document.getElementById("giftImage");
+  img.style.height="auto";
+  img.style.opacity="1";
+
   confetti({particleCount:140,spread:90,origin:{y:.6}});
 }
 </script>
