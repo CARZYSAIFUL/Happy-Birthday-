@@ -11,12 +11,12 @@
 <!-- Confetti -->
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
-<!-- Preload images (FAST LOAD) -->
+<!-- Preload images -->
 <link rel="preload" as="image" href="gift-box.jpg">
 <link rel="preload" as="image" href="rose.jpg">
+<link rel="preload" as="image" href="rose-1.jpg">
 
 <style>
-/* ===== BASE ===== */
 html,body{
   margin:0;
   padding:0;
@@ -28,7 +28,6 @@ body{
   background-size:400% 400%;
   animation:bgMove 15s ease infinite;
   overflow-x:hidden;
-  position:relative;
 }
 @keyframes bgMove{
   0%{background-position:0% 50%}
@@ -91,12 +90,6 @@ h1{
   background:rgba(255,255,255,.6);
   border-radius:999px;
   box-shadow:0 6px 16px rgba(0,0,0,.15);
-  animation:pulse 1.6s infinite;
-}
-@keyframes pulse{
-  0%{transform:scale(1);opacity:.8}
-  50%{transform:scale(1.05);opacity:1}
-  100%{transform:scale(1);opacity:.8}
 }
 .video-box iframe{
   width:100%;
@@ -124,11 +117,8 @@ h1{
   margin-top:6px;
 }
 .gift-image{
-  display:block;
-  opacity:0;
-  height:0;
-  overflow:hidden;
-  transition:opacity .3s ease;
+  display:none;
+  margin-top:18px;
 }
 .gift-image img{
   width:100%;
@@ -163,7 +153,6 @@ footer{
 footer a{
   color:#ff4d6d;
   text-decoration:none;
-  font-weight:500;
 }
 footer a:hover{
   text-decoration:underline;
@@ -198,10 +187,15 @@ footer a:hover{
     </div>
   </section>
 
-  <!-- Rose -->
+  <!-- Roses -->
   <section class="rose">
     <img src="rose.jpg">
     <p>Just for you 🌹</p>
+  </section>
+
+  <section class="rose">
+    <img src="rose-1.jpg">
+    <p>Another one for you 🌹</p>
   </section>
 
   <footer>
@@ -223,7 +217,7 @@ let age=now.getFullYear()-birth.getFullYear();
 if(now.getMonth()<1||(now.getMonth()==1&&now.getDate()<12)) age--;
 document.getElementById("age").innerHTML="Turning "+age+" ✨";
 
-// Countdown
+// Countdown (display only)
 let next=new Date(now.getFullYear(),1,12,0,0,0);
 if(now>next) next=new Date(now.getFullYear()+1,1,12,0,0,0);
 
@@ -241,12 +235,9 @@ setInterval(()=>{
 function openGift(){
   document.getElementById("openText").style.display="none";
   document.getElementById("giftBox").style.display="none";
+  document.getElementById("giftImage").style.display="block";
 
-  const img=document.getElementById("giftImage");
-  img.style.height="auto";
-  img.style.opacity="1";
-
-  confetti({particleCount:140,spread:90,origin:{y:.6}});
+  confetti({particleCount:160,spread:100,origin:{y:.6}});
 }
 </script>
 
