@@ -3,73 +3,97 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Happy Birthday Snigdha 💖</title>
+<title>Happy Birthday 💖</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Poppins&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
 <style>
 body{
   margin:0;
   font-family:'Poppins',sans-serif;
-  background:linear-gradient(135deg,#ffe6ee,#fff0f5);
+  background:linear-gradient(135deg,#1f0036,#3a0ca3,#7209b7,#ff4d6d);
+  background-size:400% 400%;
+  animation:bgMove 12s ease infinite;
+  color:white;
   text-align:center;
   overflow-x:hidden;
 }
 
+@keyframes bgMove{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+
+.card{
+  backdrop-filter:blur(15px);
+  background:rgba(255,255,255,.08);
+  border-radius:25px;
+  padding:30px 20px;
+  margin:30px auto;
+  max-width:420px;
+  box-shadow:0 25px 60px rgba(0,0,0,.6);
+}
+
 h1{
   font-family:'Dancing Script',cursive;
-  font-size:38px;
-  color:#ff4d6d;
-  margin-top:25px;
+  font-size:40px;
+  margin-bottom:20px;
+  background:linear-gradient(to right,#ffccd5,#fff);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
 }
 
 .video-box iframe{
-  width:90%;
+  width:100%;
   height:200px;
-  border-radius:15px;
+  border-radius:20px;
   border:none;
-  margin-top:15px;
-}
-
-.gift-section{
-  margin-top:30px;
+  box-shadow:0 15px 40px rgba(0,0,0,.6);
 }
 
 .gift-box{
-  font-size:75px;
+  font-size:80px;
   cursor:pointer;
+  margin-top:25px;
   animation:bounce 1.5s infinite;
 }
 @keyframes bounce{
-  50%{transform:translateY(-10px);}
+  50%{transform:translateY(-12px);}
 }
 
 .open-text{
-  color:#ff4d6d;
+  font-size:14px;
+  opacity:.8;
 }
 
 .gift-image{
   display:none;
-  margin-top:20px;
+  margin-top:25px;
+  animation:fadeIn .8s ease;
 }
 .gift-image img{
-  width:90%;
-  max-width:360px;
-  border-radius:18px;
-  box-shadow:0 12px 30px rgba(0,0,0,.25);
+  width:100%;
+  border-radius:20px;
+  box-shadow:0 20px 50px rgba(0,0,0,.6);
 }
 
-/* 3D Slider */
+@keyframes fadeIn{
+  from{opacity:0;transform:scale(.8)}
+  to{opacity:1;transform:scale(1)}
+}
+
+/* Premium 3D Slider */
 .slider-container{
   display:none;
-  margin-top:40px;
-  perspective:1000px;
+  margin-top:50px;
+  perspective:1200px;
 }
 
 .carousel{
-  width:300px;
-  height:300px;
+  width:320px;
+  height:320px;
   margin:auto;
   position:relative;
   transform-style:preserve-3d;
@@ -78,33 +102,33 @@ h1{
 
 .carousel img{
   position:absolute;
-  width:170px;
-  height:230px;
+  width:190px;
+  height:250px;
   object-fit:cover;
   left:65px;
   top:35px;
-  border-radius:15px;
-  box-shadow:0 15px 30px rgba(0,0,0,.3);
+  border-radius:18px;
+  box-shadow:0 20px 45px rgba(0,0,0,.7);
+  transition:transform .5s;
 }
 
 /* Roses */
 .rose{
-  margin-top:50px;
+  margin-top:60px;
 }
 .rose img{
-  width:90%;
-  max-width:360px;
-  border-radius:18px;
-  box-shadow:0 12px 30px rgba(0,0,0,.25);
+  width:100%;
+  border-radius:20px;
+  box-shadow:0 20px 45px rgba(0,0,0,.7);
 }
 
 footer{
-  margin-top:30px;
+  margin-top:40px;
   font-size:14px;
-  color:#777;
+  opacity:.7;
 }
 footer a{
-  color:#ff4d6d;
+  color:#ffccd5;
   text-decoration:none;
 }
 </style>
@@ -112,36 +136,34 @@ footer a{
 
 <body>
 
-<h1>Happy Birthday<br>Snigdha Afrin Ety 🎂💖</h1>
+<div class="card">
+
+<h1>Happy Birthday<br>Snigdha Afrin Ety 💖</h1>
 
 <div class="video-box">
   <iframe src="https://streamable.com/e/tsgee9" allowfullscreen></iframe>
 </div>
 
-<div class="gift-section">
-  <div class="gift-box" id="giftBox" onclick="openGift()">🎁</div>
-  <div class="open-text" id="openText">Open Gift Box</div>
+<div class="gift-box" id="giftBox" onclick="openGift()">🎁</div>
+<div class="open-text" id="openText">Open Your Surprise</div>
 
-  <div class="gift-image" id="giftImage">
-    <img src="gift-box.jpg">
-  </div>
+<div class="gift-image" id="giftImage">
+  <img src="gift-box.jpg">
+</div>
 
-  <!-- 3D Slider -->
-  <div class="slider-container" id="sliderContainer">
-    <div class="carousel" id="carousel">
-      <img src="e1.jpg">
-      <img src="e2.jpg">
-      <img src="e3.jpg">
-      <img src="e4.jpg">
-      <img src="e5.jpg">
-      <img src="e6.jpg">
-      <img src="e7.jpg">
-      <img src="e8.jpg">
-    </div>
+<div class="slider-container" id="sliderContainer">
+  <div class="carousel" id="carousel">
+    <img src="e1.jpg">
+    <img src="e2.jpg">
+    <img src="e3.jpg">
+    <img src="e4.jpg">
+    <img src="e5.jpg">
+    <img src="e6.jpg">
+    <img src="e7.jpg">
+    <img src="e8.jpg">
   </div>
 </div>
 
-<!-- Roses -->
 <div class="rose">
   <img src="rose.jpg">
 </div>
@@ -154,20 +176,22 @@ footer a{
 Developed by 
 <a href="https://www.facebook.com/Mohammadsaiful91" target="_blank">
 Saiful
-</a> 💖
+</a>
 </footer>
+
+</div>
 
 <script>
 function openGift(){
-  document.getElementById("openText").style.display="none";
   document.getElementById("giftBox").style.display="none";
+  document.getElementById("openText").style.display="none";
   document.getElementById("giftImage").style.display="block";
   document.getElementById("sliderContainer").style.display="block";
 
-  confetti({particleCount:180,spread:100,origin:{y:.6}});
+  confetti({particleCount:250,spread:120,origin:{y:.6}});
 }
 
-/* 3D Slider Logic */
+/* 3D Slider */
 const carousel=document.getElementById("carousel");
 const images=carousel.querySelectorAll("img");
 const total=images.length;
@@ -175,9 +199,16 @@ const angle=360/total;
 let currentRotation=0;
 
 images.forEach((img,i)=>{
-  img.style.transform=`rotateY(${i*angle}deg) translateZ(320px)`;
+  img.style.transform=`rotateY(${i*angle}deg) translateZ(380px)`;
 });
 
+/* Auto rotate */
+setInterval(()=>{
+  currentRotation+=1;
+  carousel.style.transform=`rotateY(${currentRotation}deg)`;
+},40);
+
+/* Drag support */
 let startX=0;
 let isDragging=false;
 
@@ -198,23 +229,7 @@ document.addEventListener("mouseup",(e)=>{
   currentRotation+=delta*0.5;
   isDragging=false;
 });
-
-document.addEventListener("touchstart",(e)=>{
-  startX=e.touches[0].clientX;
-});
-
-document.addEventListener("touchmove",(e)=>{
-  let delta=e.touches[0].clientX-startX;
-  carousel.style.transform=`rotateY(${currentRotation+delta*0.5}deg)`;
-});
-
-document.addEventListener("touchend",()=>{
-  currentRotation=parseFloat(
-    carousel.style.transform.replace("rotateY(","").replace("deg)","")
-  );
-});
 </script>
 
 </body>
 </html>
-
