@@ -5,148 +5,101 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Happy Birthday Snigdha 💖</title>
 
-<!-- Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Poppins&display=swap" rel="stylesheet">
-
-<!-- Confetti -->
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
-<!-- Preload images -->
-<link rel="preload" as="image" href="gift-box.jpg">
-<link rel="preload" as="image" href="rose.jpg">
-<link rel="preload" as="image" href="rose-1.jpg">
-
 <style>
-html,body{
-  margin:0;
-  padding:0;
-  min-height:100%;
-}
 body{
+  margin:0;
   font-family:'Poppins',sans-serif;
-  background:linear-gradient(135deg,#ffe6ee,#fff0f5,#fbeaff);
-  background-size:400% 400%;
-  animation:bgMove 15s ease infinite;
+  background:linear-gradient(135deg,#ffe6ee,#fff0f5);
+  text-align:center;
   overflow-x:hidden;
 }
-@keyframes bgMove{
-  0%{background-position:0% 50%}
-  50%{background-position:100% 50%}
-  100%{background-position:0% 50%}
-}
 
-/* Hearts background */
-.heart-bg{
-  position:fixed;
-  inset:0;
-  background-image:radial-gradient(#ffb6c1 2px, transparent 2px);
-  background-size:40px 40px;
-  opacity:.25;
-  z-index:0;
-  pointer-events:none;
-}
-
-/* Glass card */
-.card{
-  position:relative;
-  z-index:1;
-  max-width:420px;
-  margin:30px auto;
-  padding:26px 22px 30px;
-  border-radius:22px;
-  background:rgba(255,255,255,.45);
-  backdrop-filter:blur(14px);
-  box-shadow:0 20px 40px rgba(0,0,0,.18);
-  text-align:center;
-}
-
-/* Text */
 h1{
   font-family:'Dancing Script',cursive;
-  font-size:40px;
+  font-size:38px;
   color:#ff4d6d;
-  margin:10px 0 15px;
-}
-#countdown{
-  font-size:17px;
-  color:#555;
-}
-#age{
-  font-size:42px;
-  color:#ff4d6d;
-  margin:18px 0;
+  margin-top:25px;
 }
 
-/* Video */
-.video-box{
-  margin:18px 0 26px;
-}
-.sound-hint{
-  display:inline-block;
-  padding:6px 14px;
-  margin-bottom:10px;
-  font-size:13px;
-  color:#ff4d6d;
-  background:rgba(255,255,255,.6);
-  border-radius:999px;
-  box-shadow:0 6px 16px rgba(0,0,0,.15);
-}
 .video-box iframe{
-  width:100%;
+  width:90%;
   height:200px;
-  border-radius:16px;
+  border-radius:15px;
   border:none;
-  box-shadow:0 12px 30px rgba(0,0,0,.25);
+  margin-top:15px;
 }
 
-/* Gift */
 .gift-section{
-  margin:30px 0;
+  margin-top:30px;
 }
+
 .gift-box{
   font-size:75px;
   cursor:pointer;
-  animation:bounce 1.4s infinite;
+  animation:bounce 1.5s infinite;
 }
 @keyframes bounce{
-  50%{transform:translateY(-12px);}
+  50%{transform:translateY(-10px);}
 }
+
 .open-text{
-  font-size:15px;
   color:#ff4d6d;
-  margin-top:6px;
 }
+
 .gift-image{
   display:none;
-  margin-top:18px;
+  margin-top:20px;
 }
 .gift-image img{
-  width:100%;
+  width:90%;
   max-width:360px;
   border-radius:18px;
   box-shadow:0 12px 30px rgba(0,0,0,.25);
 }
 
-/* Rose */
+/* 3D Slider */
+.slider-container{
+  display:none;
+  margin-top:40px;
+  perspective:1000px;
+}
+
+.carousel{
+  width:300px;
+  height:300px;
+  margin:auto;
+  position:relative;
+  transform-style:preserve-3d;
+  transition:transform 1s;
+}
+
+.carousel img{
+  position:absolute;
+  width:170px;
+  height:230px;
+  object-fit:cover;
+  left:65px;
+  top:35px;
+  border-radius:15px;
+  box-shadow:0 15px 30px rgba(0,0,0,.3);
+}
+
+/* Roses */
 .rose{
-  margin:40px 0 10px;
+  margin-top:50px;
 }
 .rose img{
-  width:100%;
+  width:90%;
   max-width:360px;
   border-radius:18px;
   box-shadow:0 12px 30px rgba(0,0,0,.25);
 }
-.rose p{
-  font-family:'Dancing Script',cursive;
-  font-size:22px;
-  color:#ff4d6d;
-  margin-top:10px;
-}
 
-/* Footer */
 footer{
-  margin-top:25px;
+  margin-top:30px;
   font-size:14px;
   color:#777;
 }
@@ -154,91 +107,112 @@ footer a{
   color:#ff4d6d;
   text-decoration:none;
 }
-footer a:hover{
-  text-decoration:underline;
-}
 </style>
 </head>
 
 <body>
 
-<div class="heart-bg"></div>
+<h1>Happy Birthday<br>Snigdha Afrin Ety 🎂💖</h1>
 
-<div class="card">
-
-  <h1>Happy Birthday<br>Snigdha Afrin Ety 🎂💖</h1>
-
-  <div id="countdown"></div>
-  <div id="age"></div>
-
-  <!-- Video -->
-  <div class="video-box">
-    <div class="sound-hint">▶️ Tap play for video</div>
-    <iframe src="https://streamable.com/e/tsgee9" allowfullscreen></iframe>
-  </div>
-
-  <!-- Gift -->
-  <section class="gift-section">
-    <div class="gift-box" id="giftBox" onclick="openGift()">🎁</div>
-    <div class="open-text" id="openText">Open Gift Box</div>
-
-    <div class="gift-image" id="giftImage">
-      <img src="gift-box.jpg">
-    </div>
-  </section>
-
-  <!-- Roses -->
-  <section class="rose">
-    <img src="rose.jpg">
-    <p>Just for you 🌹</p>
-  </section>
-
-  <section class="rose">
-    <img src="rose-1.jpg">
-    <p>Another one for you 🌹</p>
-  </section>
-
-  <footer>
-    Developed by
-    <a href="https://www.facebook.com/Mohammadsaiful91" target="_blank">
-      Saiful
-    </a> 💖
-  </footer>
-
+<div class="video-box">
+  <iframe src="https://streamable.com/e/tsgee9" allowfullscreen></iframe>
 </div>
 
+<div class="gift-section">
+  <div class="gift-box" id="giftBox" onclick="openGift()">🎁</div>
+  <div class="open-text" id="openText">Open Gift Box</div>
+
+  <div class="gift-image" id="giftImage">
+    <img src="gift-box.jpg">
+  </div>
+
+  <!-- 3D Slider -->
+  <div class="slider-container" id="sliderContainer">
+    <div class="carousel" id="carousel">
+      <img src="e1.jpg">
+      <img src="e2.jpg">
+      <img src="e3.jpg">
+      <img src="e4.jpg">
+      <img src="e5.jpg">
+      <img src="e6.jpg">
+      <img src="e7.jpg">
+      <img src="e8.jpg">
+    </div>
+  </div>
+</div>
+
+<!-- Roses -->
+<div class="rose">
+  <img src="rose.jpg">
+</div>
+
+<div class="rose">
+  <img src="rose-1.jpg">
+</div>
+
+<footer>
+Developed by 
+<a href="https://www.facebook.com/Mohammadsaiful91" target="_blank">
+Saiful
+</a> 💖
+</footer>
+
 <script>
-// Birthday
-const birth=new Date("2008-02-12");
-const now=new Date();
-
-// Age
-let age=now.getFullYear()-birth.getFullYear();
-if(now.getMonth()<1||(now.getMonth()==1&&now.getDate()<12)) age--;
-document.getElementById("age").innerHTML="Turning "+age+" ✨";
-
-// Countdown (display only)
-let next=new Date(now.getFullYear(),1,12,0,0,0);
-if(now>next) next=new Date(now.getFullYear()+1,1,12,0,0,0);
-
-setInterval(()=>{
-  let diff=next-new Date();
-  let d=Math.floor(diff/86400000);
-  let h=Math.floor(diff/3600000)%24;
-  let m=Math.floor(diff/60000)%60;
-  let s=Math.floor(diff/1000)%60;
-  document.getElementById("countdown").innerHTML=
-    `🎉 Birthday in ${d}d ${h}h ${m}m ${s}s`;
-},1000);
-
-// Gift open
 function openGift(){
   document.getElementById("openText").style.display="none";
   document.getElementById("giftBox").style.display="none";
   document.getElementById("giftImage").style.display="block";
+  document.getElementById("sliderContainer").style.display="block";
 
-  confetti({particleCount:160,spread:100,origin:{y:.6}});
+  confetti({particleCount:180,spread:100,origin:{y:.6}});
 }
+
+/* 3D Slider Logic */
+const carousel=document.getElementById("carousel");
+const images=carousel.querySelectorAll("img");
+const total=images.length;
+const angle=360/total;
+let currentRotation=0;
+
+images.forEach((img,i)=>{
+  img.style.transform=`rotateY(${i*angle}deg) translateZ(320px)`;
+});
+
+let startX=0;
+let isDragging=false;
+
+document.addEventListener("mousedown",(e)=>{
+  isDragging=true;
+  startX=e.clientX;
+});
+
+document.addEventListener("mousemove",(e)=>{
+  if(!isDragging) return;
+  let delta=e.clientX-startX;
+  carousel.style.transform=`rotateY(${currentRotation+delta*0.5}deg)`;
+});
+
+document.addEventListener("mouseup",(e)=>{
+  if(!isDragging) return;
+  let delta=e.clientX-startX;
+  currentRotation+=delta*0.5;
+  isDragging=false;
+});
+
+document.addEventListener("touchstart",(e)=>{
+  startX=e.touches[0].clientX;
+});
+
+document.addEventListener("touchmove",(e)=>{
+  let delta=e.touches[0].clientX-startX;
+  carousel.style.transform=`rotateY(${currentRotation+delta*0.5}deg)`;
+});
+
+document.addEventListener("touchend",()=>{
+  currentRotation=parseFloat(
+    carousel.style.transform.replace("rotateY(","").replace("deg)","")
+  );
+});
 </script>
 
 </body>
