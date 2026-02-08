@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,10 +12,9 @@
 body{
   margin:0;
   font-family:'Poppins',sans-serif;
-  background:linear-gradient(135deg,#1f0036,#3a0ca3,#7209b7,#ff4d6d);
+  background:linear-gradient(135deg,#ffccd5,#ffc2d1,#ffb3c6,#ff8fab);
   background-size:400% 400%;
   animation:bgMove 12s ease infinite;
-  color:white;
   text-align:center;
   overflow-x:hidden;
 }
@@ -27,22 +26,19 @@ body{
 }
 
 .card{
+  background:rgba(255,255,255,.35);
   backdrop-filter:blur(15px);
-  background:rgba(255,255,255,.08);
   border-radius:25px;
   padding:30px 20px;
   margin:30px auto;
   max-width:420px;
-  box-shadow:0 25px 60px rgba(0,0,0,.6);
+  box-shadow:0 20px 50px rgba(0,0,0,.2);
 }
 
 h1{
   font-family:'Dancing Script',cursive;
-  font-size:40px;
-  margin-bottom:20px;
-  background:linear-gradient(to right,#ffccd5,#fff);
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
+  font-size:38px;
+  color:#c9184a;
 }
 
 .video-box iframe{
@@ -50,7 +46,7 @@ h1{
   height:200px;
   border-radius:20px;
   border:none;
-  box-shadow:0 15px 40px rgba(0,0,0,.6);
+  box-shadow:0 10px 30px rgba(0,0,0,.3);
 }
 
 .gift-box{
@@ -60,31 +56,25 @@ h1{
   animation:bounce 1.5s infinite;
 }
 @keyframes bounce{
-  50%{transform:translateY(-12px);}
+  50%{transform:translateY(-10px);}
 }
 
 .open-text{
+  color:#c9184a;
   font-size:14px;
-  opacity:.8;
 }
 
 .gift-image{
   display:none;
-  margin-top:25px;
-  animation:fadeIn .8s ease;
+  margin-top:20px;
 }
 .gift-image img{
   width:100%;
   border-radius:20px;
-  box-shadow:0 20px 50px rgba(0,0,0,.6);
+  box-shadow:0 15px 40px rgba(0,0,0,.3);
 }
 
-@keyframes fadeIn{
-  from{opacity:0;transform:scale(.8)}
-  to{opacity:1;transform:scale(1)}
-}
-
-/* Premium 3D Slider */
+/* 3D Slider */
 .slider-container{
   display:none;
   margin-top:50px;
@@ -97,19 +87,18 @@ h1{
   margin:auto;
   position:relative;
   transform-style:preserve-3d;
-  transition:transform 1s;
 }
 
 .carousel img{
   position:absolute;
-  width:190px;
-  height:250px;
+  width:180px;
+  height:240px;
   object-fit:cover;
-  left:65px;
-  top:35px;
+  left:70px;
+  top:40px;
   border-radius:18px;
-  box-shadow:0 20px 45px rgba(0,0,0,.7);
-  transition:transform .5s;
+  box-shadow:0 20px 45px rgba(0,0,0,.4);
+  user-select:none;
 }
 
 /* Roses */
@@ -119,16 +108,15 @@ h1{
 .rose img{
   width:100%;
   border-radius:20px;
-  box-shadow:0 20px 45px rgba(0,0,0,.7);
+  box-shadow:0 15px 40px rgba(0,0,0,.3);
 }
 
 footer{
   margin-top:40px;
   font-size:14px;
-  opacity:.7;
 }
 footer a{
-  color:#ffccd5;
+  color:#c9184a;
   text-decoration:none;
 }
 </style>
@@ -138,7 +126,7 @@ footer a{
 
 <div class="card">
 
-<h1>Happy Birthday<br>Snigdha Afrin Ety 💖</h1>
+<h1>Happy Birthday<br>Snigdha Afrin Ety 🎂💖</h1>
 
 <div class="video-box">
   <iframe src="https://streamable.com/e/tsgee9" allowfullscreen></iframe>
@@ -188,10 +176,10 @@ function openGift(){
   document.getElementById("giftImage").style.display="block";
   document.getElementById("sliderContainer").style.display="block";
 
-  confetti({particleCount:250,spread:120,origin:{y:.6}});
+  confetti({particleCount:200,spread:100,origin:{y:.6}});
 }
 
-/* 3D Slider */
+/* 3D Slider - Hand Control Only */
 const carousel=document.getElementById("carousel");
 const images=carousel.querySelectorAll("img");
 const total=images.length;
@@ -202,13 +190,6 @@ images.forEach((img,i)=>{
   img.style.transform=`rotateY(${i*angle}deg) translateZ(380px)`;
 });
 
-/* Auto rotate */
-setInterval(()=>{
-  currentRotation+=1;
-  carousel.style.transform=`rotateY(${currentRotation}deg)`;
-},40);
-
-/* Drag support */
 let startX=0;
 let isDragging=false;
 
@@ -228,6 +209,21 @@ document.addEventListener("mouseup",(e)=>{
   let delta=e.clientX-startX;
   currentRotation+=delta*0.5;
   isDragging=false;
+});
+
+document.addEventListener("touchstart",(e)=>{
+  startX=e.touches[0].clientX;
+});
+
+document.addEventListener("touchmove",(e)=>{
+  let delta=e.touches[0].clientX-startX;
+  carousel.style.transform=`rotateY(${currentRotation+delta*0.5}deg)`;
+});
+
+document.addEventListener("touchend",(e)=>{
+  currentRotation=parseFloat(
+    carousel.style.transform.replace("rotateY(","").replace("deg)","")
+  );
 });
 </script>
 
