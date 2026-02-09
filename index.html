@@ -12,9 +12,9 @@
 body{
   margin:0;
   font-family:'Poppins',sans-serif;
-  background:linear-gradient(135deg,#ffccd5,#ffc2d1,#ffb3c6,#ff8fab);
+  background:linear-gradient(135deg,#ffb3c6,#ff8fab,#ff4d6d);
   background-size:400% 400%;
-  animation:bgMove 12s ease infinite;
+  animation:bgMove 10s ease infinite;
   text-align:center;
   overflow-x:hidden;
 }
@@ -25,7 +25,37 @@ body{
   100%{background-position:0% 50%}
 }
 
+/* 💖 Floating Big Visible Hearts */
+.hearts{
+  position:fixed;
+  inset:0;
+  overflow:hidden;
+  pointer-events:none;
+  z-index:0;
+}
+
+.heart{
+  position:absolute;
+  bottom:-50px;
+  color:rgba(255,255,255,0.8);
+  animation:floatUp linear infinite;
+}
+
+@keyframes floatUp{
+  0%{
+    transform:translateY(0) scale(1);
+    opacity:0;
+  }
+  20%{opacity:1;}
+  100%{
+    transform:translateY(-120vh) scale(1.5);
+    opacity:0;
+  }
+}
+
 .card{
+  position:relative;
+  z-index:1;
   background:rgba(255,255,255,.35);
   backdrop-filter:blur(15px);
   border-radius:25px;
@@ -101,7 +131,6 @@ h1{
   user-select:none;
 }
 
-/* Roses */
 .rose{
   margin-top:60px;
 }
@@ -124,9 +153,11 @@ footer a{
 
 <body>
 
+<div class="hearts" id="hearts"></div>
+
 <div class="card">
 
-<h1>Happy Birthday<br>Snigdha Afrin Ety 🎂💖</h1>
+<h1>Happy Birthday<br>Snigdha Afrin Ety 💖</h1>
 
 <div class="video-box">
   <iframe src="https://streamable.com/e/tsgee9" allowfullscreen></iframe>
@@ -175,11 +206,10 @@ function openGift(){
   document.getElementById("openText").style.display="none";
   document.getElementById("giftImage").style.display="block";
   document.getElementById("sliderContainer").style.display="block";
-
   confetti({particleCount:200,spread:100,origin:{y:.6}});
 }
 
-/* 3D Slider - Hand Control Only */
+/* 3D Slider */
 const carousel=document.getElementById("carousel");
 const images=carousel.querySelectorAll("img");
 const total=images.length;
@@ -220,11 +250,27 @@ document.addEventListener("touchmove",(e)=>{
   carousel.style.transform=`rotateY(${currentRotation+delta*0.5}deg)`;
 });
 
-document.addEventListener("touchend",(e)=>{
+document.addEventListener("touchend",()=>{
   currentRotation=parseFloat(
     carousel.style.transform.replace("rotateY(","").replace("deg)","")
   );
 });
+
+/* Strong Visible Hearts Generator */
+const heartsContainer = document.getElementById("hearts");
+
+function createHeart(){
+  const heart = document.createElement("div");
+  heart.classList.add("heart");
+  heart.innerHTML = "💗🎂🎈🎉";
+  heart.style.left = Math.random()*100 + "vw";
+  heart.style.fontSize = (25 + Math.random()*35) + "px";
+  heart.style.animationDuration = (6 + Math.random()*5) + "s";
+  heartsContainer.appendChild(heart);
+  setTimeout(()=>{heart.remove();},12000);
+}
+
+setInterval(createHeart,600);
 </script>
 
 </body>
