@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,6 +9,7 @@
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
 <style>
+/* ===== BASE ===== */
 body{
   margin:0;
   font-family:'Poppins',sans-serif;
@@ -18,14 +19,13 @@ body{
   text-align:center;
   overflow-x:hidden;
 }
-
 @keyframes bgMove{
   0%{background-position:0% 50%}
   50%{background-position:100% 50%}
   100%{background-position:0% 50%}
 }
 
-/* Floating hearts */
+/* Floating Hearts */
 .hearts{
   position:fixed;
   inset:0;
@@ -60,9 +60,7 @@ h1{
   font-family:'Dancing Script',cursive;
   font-size:38px;
   color:#c9184a;
-  margin-bottom:5px;
 }
-
 .age{
   font-size:20px;
   color:#c9184a;
@@ -88,10 +86,6 @@ h1{
 @keyframes bounce{
   50%{transform:translateY(-10px);}
 }
-.open-text{
-  color:#c9184a;
-  font-size:14px;
-}
 .gift-image{
   display:none;
   margin-top:20px;
@@ -102,8 +96,8 @@ h1{
   box-shadow:0 15px 40px rgba(0,0,0,.3);
 }
 
-/* ===== 3D Slider (FINAL SAFE) ===== */
-.slider-container{
+/* ===== DESKTOP 3D (SAFE) ===== */
+.slider-3d{
   display:none;
   margin-top:50px;
   perspective:1200px;
@@ -114,8 +108,6 @@ h1{
   margin:auto;
   position:relative;
   transform-style:preserve-3d;
-  will-change:transform;
-  touch-action:pan-y;
 }
 .carousel img{
   position:absolute;
@@ -125,14 +117,30 @@ h1{
   left:70px;
   top:40px;
   border-radius:18px;
-  box-shadow:0 20px 45px rgba(0,0,0,.4);
+  box-shadow:0 10px 25px rgba(0,0,0,.3);
   user-select:none;
-  -webkit-user-drag:none;
+}
+
+/* ===== MOBILE INFINITE SLIDER ===== */
+.slider-mobile{
+  display:none;
+  margin-top:40px;
+  display:flex;
+  gap:15px;
+  overflow-x:auto;
+  scroll-snap-type:x mandatory;
+  padding:10px;
+}
+.slider-mobile img{
+  flex:0 0 80%;
+  border-radius:20px;
+  scroll-snap-align:center;
+  box-shadow:0 15px 35px rgba(0,0,0,.3);
 }
 
 /* Roses */
 .rose{
-  margin-top:60px;
+  margin-top:50px;
 }
 .rose img{
   width:100%;
@@ -165,14 +173,14 @@ footer a{
   <iframe src="https://streamable.com/e/tsgee9" allowfullscreen></iframe>
 </div>
 
-<div class="gift-box" id="giftBox" onclick="openGift()">🎁</div>
-<div class="open-text" id="openText">Open Your Surprise</div>
+<div class="gift-box" onclick="openGift()">🎁</div>
 
 <div class="gift-image" id="giftImage">
   <img src="gift-box.jpg">
 </div>
 
-<div class="slider-container" id="sliderContainer">
+<!-- Desktop 3D -->
+<div class="slider-3d" id="slider3d">
   <div class="carousel" id="carousel">
     <img src="e1.jpg">
     <img src="e2.jpg">
@@ -180,9 +188,19 @@ footer a{
     <img src="e4.jpg">
     <img src="e5.jpg">
     <img src="e6.jpg">
-    <img src="e7.jpg">
-    <img src="e8.jpg">
   </div>
+</div>
+
+<!-- Mobile Infinite -->
+<div class="slider-mobile" id="sliderMobile">
+  <img src="e1.jpg">
+  <img src="e2.jpg">
+  <img src="e3.jpg">
+  <img src="e4.jpg">
+  <img src="e5.jpg">
+  <img src="e6.jpg">
+  <img src="e7.jpg">
+  <img src="e8.jpg">
 </div>
 
 <div class="rose"><img src="rose.jpg"></div>
@@ -196,61 +214,62 @@ Developed by
 </div>
 
 <script>
-/* Gift */
+/* Gift open */
 function openGift(){
-  giftBox.style.display="none";
-  openText.style.display="none";
-  giftImage.style.display="block";
-  sliderContainer.style.display="block";
+  document.querySelector(".gift-box").style.display="none";
+  document.getElementById("giftImage").style.display="block";
+
+  if(window.innerWidth > 768){
+    document.getElementById("slider3d").style.display="block";
+  }else{
+    document.getElementById("sliderMobile").style.display="flex";
+  }
+
   confetti({particleCount:200,spread:100,origin:{y:.6}});
 }
 
-/* ===== FINAL SAFE SLIDER LOGIC ===== */
-const carousel = document.getElementById("carousel");
-const imgs = carousel.querySelectorAll("img");
-const angle = 360 / imgs.length;
+/* Desktop 3D drag */
+const carousel=document.getElementById("carousel");
+if(carousel){
+  const imgs=carousel.querySelectorAll("img");
+  const angle=360/imgs.length;
+  let rotation=0,startX=0,drag=false;
 
-let rotation = 0;
-let startX = 0;
-let dragging = false;
+  imgs.forEach((img,i)=>{
+    img.style.transform=`rotateY(${i*angle}deg) translateZ(340px)`;
+  });
 
-/* Arrange */
-imgs.forEach((img,i)=>{
-  img.style.transform = `rotateY(${i*angle}deg) translateZ(380px)`;
-});
-
-/* Start drag */
-carousel.addEventListener("pointerdown", e=>{
-  dragging = true;
-  startX = e.clientX;
-});
-
-/* Move */
-window.addEventListener("pointermove", e=>{
-  if(!dragging) return;
-  const delta = e.clientX - startX;
-  carousel.style.transform = `rotateY(${rotation + delta*0.35}deg)`;
-});
-
-/* Stop drag (ANY case) */
-function stopDrag(e){
-  if(!dragging) return;
-  const delta = e.clientX - startX;
-  rotation += delta*0.35;
-  if(!Number.isFinite(rotation)) rotation = 0;
-  dragging = false;
+  carousel.addEventListener("pointerdown",e=>{
+    drag=true;startX=e.clientX;
+  });
+  window.addEventListener("pointermove",e=>{
+    if(!drag)return;
+    carousel.style.transform=`rotateY(${rotation+(e.clientX-startX)*0.3}deg)`;
+  });
+  window.addEventListener("pointerup",e=>{
+    if(!drag)return;
+    rotation+=(e.clientX-startX)*0.3;
+    drag=false;
+  });
 }
-window.addEventListener("pointerup", stopDrag);
-window.addEventListener("pointercancel", stopDrag);
-window.addEventListener("mouseleave", stopDrag);
-window.addEventListener("blur", ()=> dragging=false);
+
+/* Mobile infinite slider */
+const mobile=document.getElementById("sliderMobile");
+if(mobile){
+  mobile.innerHTML+=mobile.innerHTML;
+  mobile.addEventListener("scroll",()=>{
+    if(mobile.scrollLeft>=mobile.scrollWidth/2){
+      mobile.scrollLeft=0;
+    }
+  });
+}
 
 /* Floating hearts */
 const hearts=document.getElementById("hearts");
 function createHeart(){
   const h=document.createElement("div");
   h.className="heart";
-  h.innerHTML="💗🎂🎉🎈😘";
+  h.innerHTML="💗🎂😘🎈🎉";
   h.style.left=Math.random()*100+"vw";
   h.style.fontSize=(26+Math.random()*30)+"px";
   h.style.animationDuration=(6+Math.random()*5)+"s";
