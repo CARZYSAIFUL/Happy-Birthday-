@@ -38,9 +38,9 @@ body{
   animation:floatUp linear infinite;
 }
 @keyframes floatUp{
-  0%{transform:translateY(0) scale(1);opacity:0;}
+  0%{transform:translateY(0);opacity:0;}
   20%{opacity:1;}
-  100%{transform:translateY(-120vh) scale(1.5);opacity:0;}
+  100%{transform:translateY(-120vh);opacity:0;}
 }
 
 /* Card */
@@ -96,7 +96,7 @@ h1{
   box-shadow:0 15px 40px rgba(0,0,0,.3);
 }
 
-/* ===== DESKTOP 3D (SAFE) ===== */
+/* ===== DESKTOP 3D ===== */
 .slider-3d{
   display:none;
   margin-top:50px;
@@ -113,30 +113,36 @@ h1{
   position:absolute;
   width:180px;
   height:240px;
-  object-fit:cover;
+  object-fit:contain; /* original ratio */
   left:70px;
   top:40px;
   border-radius:18px;
   box-shadow:0 10px 25px rgba(0,0,0,.3);
-  user-select:none;
+  background:#fff;
 }
 
 /* ===== MOBILE INFINITE SLIDER ===== */
 .slider-mobile{
-  display:none;
-  margin-top:40px;
   display:flex;
   gap:15px;
   overflow-x:auto;
   scroll-snap-type:x mandatory;
   padding:10px;
+  margin-top:40px;
 }
 .slider-mobile img{
-  flex:0 0 80%;
+  flex:0 0 85%;
+  max-height:320px;
+  object-fit:contain;     /* ✅ ORIGINAL RATIO */
+  background:#fff;
   border-radius:20px;
   scroll-snap-align:center;
   box-shadow:0 15px 35px rgba(0,0,0,.3);
 }
+
+/* Hide scrollbar */
+.slider-mobile::-webkit-scrollbar{display:none;}
+.slider-mobile{scrollbar-width:none;}
 
 /* Roses */
 .rose{
@@ -180,7 +186,7 @@ footer a{
 </div>
 
 <!-- Desktop 3D -->
-<div class="slider-3d" id="slider3d">
+<div class="slider-3d" id="slider3d" hidden>
   <div class="carousel" id="carousel">
     <img src="e1.jpg">
     <img src="e2.jpg">
@@ -191,8 +197,8 @@ footer a{
   </div>
 </div>
 
-<!-- Mobile Infinite -->
-<div class="slider-mobile" id="sliderMobile">
+<!-- Mobile Slider -->
+<div class="slider-mobile" id="sliderMobile" hidden>
   <img src="e1.jpg">
   <img src="e2.jpg">
   <img src="e3.jpg">
@@ -220,15 +226,15 @@ function openGift(){
   document.getElementById("giftImage").style.display="block";
 
   if(window.innerWidth > 768){
-    document.getElementById("slider3d").style.display="block";
+    document.getElementById("slider3d").hidden=false;
   }else{
-    document.getElementById("sliderMobile").style.display="flex";
+    document.getElementById("sliderMobile").hidden=false;
   }
 
   confetti({particleCount:200,spread:100,origin:{y:.6}});
 }
 
-/* Desktop 3D drag */
+/* Desktop 3D */
 const carousel=document.getElementById("carousel");
 if(carousel){
   const imgs=carousel.querySelectorAll("img");
@@ -253,7 +259,7 @@ if(carousel){
   });
 }
 
-/* Mobile infinite slider */
+/* Mobile infinite */
 const mobile=document.getElementById("sliderMobile");
 if(mobile){
   mobile.innerHTML+=mobile.innerHTML;
@@ -269,14 +275,14 @@ const hearts=document.getElementById("hearts");
 function createHeart(){
   const h=document.createElement("div");
   h.className="heart";
-  h.innerHTML="💗🎂😘🎈🎉";
+  h.innerHTML="💗🎂🎉😘🎈";
   h.style.left=Math.random()*100+"vw";
-  h.style.fontSize=(26+Math.random()*30)+"px";
+  h.style.fontSize=(22+Math.random()*30)+"px";
   h.style.animationDuration=(6+Math.random()*5)+"s";
   hearts.appendChild(h);
   setTimeout(()=>h.remove(),12000);
 }
-setInterval(createHeart,650);
+setInterval(createHeart,700);
 </script>
 
 </body>
